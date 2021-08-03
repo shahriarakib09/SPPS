@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      
+      <title>Github user info</title>
+</head>
+<body>
+<style>
+
+     body{
+         background-color: silver;
+         }
+   
+     #text{ 
+      color:crimson;    
+      }
+      button{
+            background-color: crimson; 
+            border: none;
+            color: white;
+            
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-bottom: 20px;
+      }
+   
+      div 
+      {
+         color: black;
+         border: 2px solid crimson;  
+         background-color: darkgray;
+         margin-bottom: 10px;
+         
+         
+         
+         
+      }
+      div ul 
+      {
+          padding: 0px 20px ;
+      }
+      
+     
+
+
+</style>
+
+
+      <h1 id="text">Github Users</h1>
+      <button id="fetch">Fetch Data</button>
+      <section id="info"> </section>
+            
+
+      <script>
+            document.getElementById('fetch').addEventListener('click',get_Data);
+           
+            function get_Data(){
+                  var req=new XMLHttpRequest();
+                  req.open('GET','https://api.github.com/users');
+
+                  req.onload=function(){
+                        if(req.status==200){
+
+                              var people = JSON.parse(req.responseText);
+                              var output= ' '; 
+                              for(var i in people){  
+                                    output +='<div>'+ 
+                               '<img src='+people[i].avatar_url+
+                               "width='100' height='100'>" +  
+                                      
+                                   '<ul> <li>ID: '
+                                     +people[i].id+'</li>' 
+                                     +'<li>Login: '
+                                        +people[i].login+'</li>' +
+
+                                    '<li>Repos:'+people[i].repos_url+' </li>' +
+                                   
+                                    ' </ul>  </div>';          
+                              }
+                        }
+                             document.getElementById('info').innerHTML=output;
+
+                  }
+                  req.send();
+            }
+      </script>
+    
+     
+  
+</body>
+</html>
